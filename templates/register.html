@@ -11,14 +11,12 @@
     }
     </style>
 </head>
-
 <body data-new-gr-c-s-check-loaded="14.1006.0" data-gr-ext-installed="">
-<title>Добавить товар</title>
+<title>Регистрация</title>
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow">
     <h5 class="my-0 mr-md-auto font-weight-normal">Si.Trino</h5>
     <a class="btn btn-info" href="/">Главная</a>
-    <a class="btn btn-warning" href="/profile/{{ current_user.id }}">Профиль</a>
-    <a class="btn btn-success" href="/logout">Выйти</a>
+        <a class="btn btn-success" href="/login">Войти</a>
 </div>
 <div class="container py-3">
     <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
@@ -36,31 +34,58 @@
     </header>
 </div>
 <div class="container">
-    <h1>Добавление товара</h1>
+    <h1>Регистрация</h1>
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>
-            {{ form.title.label }}<br>
-            {{ form.title(class="form-control") }}<br>
-            {% for error in form.title.errors %}
+            {{ form.email.label }}<br>
+            {{ form.email(class="form-control", type="email") }}<br>
+            {% for error in form.email.errors %}
         <p class="alert alert-danger" role="alert">
             {{ error }}
         </p>
         {% endfor %}
         </p>
         <p>
-            {{ form.content.label }}<br>
-            {{ form.content(class="form-control") }}<br>
-            {% for error in form.content.errors %}
-        <p content="alert alert-danger" role="alert">
+            {{ form.password.label }}<br>
+            {{ form.password(class="form-control", type="password") }}<br>
+            {% for error in form.password.errors %}
+        <p class="alert alert-danger" role="alert">
             {{ error }}
         </p>
         {% endfor %}
         </p>
         <p>
-            {{ form.price.label }}<br>
-            {{ form.price(class="form-control") }}<br>
-            {% for error in form.price.errors %}
+            {{ form.password_again.label }}<br>
+            {{ form.password_again(class="form-control", type="password") }}<br>
+            {% for error in form.password_again.errors %}
+        <p class="alert alert-danger" role="alert">
+            {{ error }}
+        </p>
+        {% endfor %}
+        </p>
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name(class="form-control") }}<br>
+            {% for error in form.name.errors %}
+        <p class="alert alert-danger" role="alert">
+            {{ error }}
+        </p>
+        {% endfor %}
+        </p>
+        <p>
+            {{ form.about.label }}<br>
+            {{ form.about(class="form-control") }}<br>
+            {% for error in form.about.errors %}
+        <p class="alert alert-danger" role="alert">
+            {{ error }}
+        </p>
+        {% endfor %}
+        </p>
+        <p>
+            {{ form.contact_info.label }}<br>
+            {{ form.contact_info(class="form-control") }}<br>
+            {% for error in form.contact_info.errors %}
         <p class="alert alert-danger" role="alert">
             {{ error }}
         </p>
