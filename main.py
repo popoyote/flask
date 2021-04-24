@@ -14,6 +14,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import reqparse, abort, Api, Resource
 import products_resources
+# Нужные библиотеки
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shop.db'
@@ -34,6 +35,7 @@ def main():
     db_session.global_init("db/blogs.db")
     app.register_blueprint(products_api.blueprint)
     app.run(debug=True)
+# Запуск сервера
 
 
 @app.route("/")
@@ -41,15 +43,7 @@ def index():
     db_sess = db_session.create_session()
     products = db_sess.query(Products)
     return render_template("index.html", products=products)
-
-
-#    items = Item.query.order_by(Item.price).all()
-#    return render_template('index.html', data=items)
-
-
-@app.route('/about')
-def about():
-    return render_template('about.html')
+# Главная страница
 
 
 @app.route('/create', methods=['GET', 'POST'])
@@ -69,8 +63,9 @@ def add_products():
         return redirect('/')
     return render_template('create.html', title='Добавление товара',
                            form=form)
+# Добавление товара
 
-
+# Регистрация
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
@@ -103,6 +98,7 @@ def load_user(user_id):
     return db_sess.query(User).get(user_id)
 
 
+# Вход (для зарегестрированных) 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -118,6 +114,7 @@ def login():
     return render_template('login.html', title='Авторизация', form=form)
 
 
+# Выход (для зарегестрированных) 
 @app.route('/logout')
 @login_required
 def logout():
@@ -125,6 +122,7 @@ def logout():
     return redirect("/")
 
 
+# Тест сессии(кол-во посещений страницы) 
 @app.route("/session_test")
 def session_test():
     visits_count = session.get('visits_count', 0)
@@ -133,6 +131,7 @@ def session_test():
         f"Вы пришли на эту страницу {visits_count + 1} раз")
 
 
+# Просмотр продукта
 @app.route('/products/<int:id>', methods=['GET', 'POST'])
 @login_required
 def id_products(id):
@@ -148,6 +147,7 @@ def id_products(id):
     return render_template('cproduct.html', products=products)
 
 
+# Просмотр профиля
 @app.route('/profile/<int:id>', methods=['GET', 'POST'])
 @login_required
 def profile(id):
@@ -163,6 +163,7 @@ def profile(id):
     return render_template('profile.html', user=user)
 
 
+# Редактирование продукта
 @app.route('/products/re/<int:id>', methods=["GET", 'POST'])
 @login_required
 def edit_products(id):
@@ -196,6 +197,7 @@ def edit_products(id):
                            )
 
 
+# Удаление продукта(для создателя)
 @app.route('/products_delete/<int:id>', methods=['GET', 'POST'])
 @login_required
 def products_delete(id):
